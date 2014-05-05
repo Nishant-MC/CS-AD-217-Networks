@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo "Running some post-make setup for Peer B..."
+
+export SPIFFY_ROUTER=127.0.0.1:32232
+./peer -p tmp/nodes.map -c tmp/B.haschunks -f tmp/C.masterchunks -m 4 -i 2
