@@ -22,17 +22,20 @@ extern chunkList hasChunk;
 
 typedef struct Packet {
     struct sockaddr_in src;
+    struct sockaddr_in* dest;
     struct timeval timestamp;
     uint8_t payload[1500];
 } Packet;
 
-/* Constructor */
 Packet *newPacketFromBuffer(char *);
 Packet *newPacketDefault();
+
 void newPacketWHOHAS(queue *);
-void newPacketGET(Packet *,queue *);
+int newPacketGET(Packet *,queue *); 
 void newPacketDATA(Packet *,queue *);
-void newPacketACK(Packet *,queue *);
+void newPacketACK(uint32_t,queue *);
+
+Packet *newFreePacketACK(uint32_t);
 Packet *newPacketSingleDATA(int , int , size_t);
 Packet *newPacketSingleGET(uint8_t*);
 Packet *newPacketIHAVE(Packet *);
@@ -42,7 +45,7 @@ void freePacket(Packet *data);
 int verifyPacket(Packet *);
 void PackettoBuffer(Packet *, char *, ssize_t*);
 
-/* Getters and Setters */
+// Getters and Setters
 uint32_t getPacketSeq(Packet *pkt);
 uint32_t getPacketAck(Packet *pkt);
 uint16_t getPacketSize(Packet *pkt);
@@ -60,12 +63,10 @@ void setPacketAck(Packet *pkt, uint32_t);
 void setPacketTime(Packet *pkt);
 
 void incPacketSeq(Packet *);
-void setPacketDest(Packet *, char*, int);
+void setPacketDest(Packet *, struct sockaddr_in*, int);
 
 void insertPacketData(Packet *, char *);
 void insertPacketHash(Packet *, uint8_t *);
-
-/* Hash related methods */
 
 int searchHash(uint8_t *hash, chunkList *chunkPool, int);
 int sameHash(uint8_t *hash1, uint8_t *hash2, int size);

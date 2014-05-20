@@ -1,0 +1,4 @@
+#!/bin/bash
+
+make
+valgrind -v --leak-check=full --show-reachable=yes --track-origins=yes ./peer -p nodes.map -c tmp/${1}.chunks -f tmp/C.masterchunks -m 4 -i ${2}

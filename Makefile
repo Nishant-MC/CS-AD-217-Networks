@@ -31,7 +31,8 @@ OBJS+=window.o
 OBJS+=connPool.o
 OBJS+=queue.o
 OBJS+=packet.o
-
+OBJS+=congestCtrl.o
+OBJS+=sortedPacketCache.o
 
 ### COMMENTING OUT A WHOLE BUNCH OF THINGS
 

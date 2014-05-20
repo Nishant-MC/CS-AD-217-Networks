@@ -27,7 +27,6 @@ typedef struct chunkList{
     	FILE *filePtr; // Master input or GET output
 }chunkList;
 
-/* Chunk */
 chunkList masterChunk;
 chunkList hasChunk;
 chunkList getChunk;
